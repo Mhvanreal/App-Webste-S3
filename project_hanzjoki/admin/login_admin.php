@@ -10,7 +10,7 @@ if (isset($_POST['login'])) {
     // Validasi form di sisi klien
     if (empty($emailOrUsername) || empty($password)) {
         echo "Email/Username dan password harus diisi.";
-        exit;
+        // exit;
     }
 
     // Query Admin
@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
 
     if (!$stmtAdmin) {
         echo "Terjadi kesalahan dalam query Admin: " . mysqli_error($koneksi);
-        exit;
+        // exit;
     }
 
     mysqli_stmt_bind_param($stmtAdmin, 'sss', $emailOrUsername, $emailOrUsername, $password);
@@ -31,22 +31,22 @@ if (isset($_POST['login'])) {
         if ($rowAdmin && $rowAdmin['sebagai'] === 'admin') {
             $_SESSION['user'] = $rowAdmin;
             header('Location: home.php');
-            exit;
+            // exit;
         } else {
             echo "Login admin gagal. Periksa email/username dan password Anda atau hubungi administrator.";
         }
     } else {
         echo "Terjadi kesalahan dalam eksekusi query Admin: " . mysqli_error($koneksi);
-        exit;
+        // exit;
     }
 
-    // Query Worker
+    
     $queryWorker = "SELECT * FROM data_worker WHERE (email = ? OR username = ?) AND pw = ?";
     $stmtWorker = mysqli_prepare($koneksi, $queryWorker);
 
     if (!$stmtWorker) {
         echo "Terjadi kesalahan dalam query Worker: " . mysqli_error($koneksi);
-        exit;
+        // exit;
     }
 
     mysqli_stmt_bind_param($stmtWorker, 'sss', $emailOrUsername, $emailOrUsername, $password);
@@ -58,18 +58,73 @@ if (isset($_POST['login'])) {
         if ($rowWorker && $rowWorker['sebagai'] === 'worker') {
             $_SESSION['user'] = $rowWorker;
             header('Location: ../worker/worker_dashboard.php');
-            exit;
+            // exit;
         } else {
             echo "Login worker gagal. Periksa email/username dan password Anda atau hubungi administrator.";
         }
     } else {
         echo "Terjadi kesalahan dalam eksekusi query Worker: " . mysqli_error($koneksi);
-        exit;
+        // exit;
     }
 
-    // Jika mencapai titik ini, login gagal
+   
     echo "Login gagal. Periksa email/username dan password Anda atau hubungi administrator.";
 }
+
+// ...
+
+// if (isset($_POST["login"])) {
+//     $username = $_POST["emailOrUsername"]; // Sesuaikan dengan nama input pada form
+//     $password = $_POST["password"];
+
+
+//     // Query untuk login worker
+//     $queryWorker = "SELECT * FROM data_worker WHERE username = '$username'";
+//     $resultWorker = mysqli_query($koneksi, $queryWorker);
+//     $rowWorker = mysqli_fetch_assoc($resultWorker);
+
+//     // Periksa apakah username ditemukan di tabel admin
+//     if ($rowAdmin) {
+//         if ($password === $rowAdmin["pw"] && $rowAdmin['sebagai'] === 'admin') {
+//             $_SESSION["user"] = $rowAdmin;
+//             $_SESSION["search"] = null;
+//             header('Location: home.php');
+//             exit;
+//         } else {
+//             echo "
+//             <script>
+//             alert('Password yang Anda masukkan salah atau Anda bukan admin. Silakan coba lagi.');
+//             document.location.href = 'login_admin.php';
+//             </script>
+//             ";
+//         }
+//     } elseif ($rowWorker) {
+//         // Jika username ditemukan di tabel worker
+//         if ($password === $rowWorker["pw"] && $rowWorker['sebagai'] === 'worker') {
+//             $_SESSION["user"] = $rowWorker;
+//             $_SESSION["search"] = null;
+//             header('Location: ../worker/worker_dashboard.php');
+//             exit;
+//         } else {
+//             echo "
+//             <script>
+//             alert('Password yang Anda masukkan salah atau Anda bukan worker. Silakan coba lagi.');
+//             document.location.href = 'login_admin.php';
+//             </script>
+//             ";
+//         }
+//     } else {
+//         // Jika username tidak ditemukan di kedua tabel
+//         echo "
+//         <script>
+//         alert('Username tidak ditemukan. Silakan cek kembali username Anda.');
+//         document.location.href = 'login_admin.php';
+//         </script>
+//         ";
+//     }
+// }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -90,10 +145,10 @@ if (isset($_POST['login'])) {
         
         <div class="box-foto">
                 <img src="../image/profile.png" alt="" class="foto-login">
-                <span class="title-wave">Welcome</span>
+                <span class="title-wave">Welcomeback</span>
             </div>
             <h1 class="aduh">Sign In</h1>
-            <form action="login_admin.php" method="post">
+            <form action="" method="post">
                 <label for="emailOrUsername">Email/Username:</label>
                 <input type="text" id="emailOrUsername" name="emailOrUsername" required>
 

@@ -169,7 +169,7 @@ $row_detail = mysqli_fetch_assoc($result_detail);
             
 
 
-            <a href="dashboardcust.php" class="pesan-button">Beli Lagi</a>
+            <a href="nonlgnberanda.php" class="pesan-button">Beli Lagi</a>
             
             </div>
             

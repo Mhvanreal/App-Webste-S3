@@ -26,10 +26,10 @@
             <a href="nonlgnberanda.php">
                 <span class="link-text">Beranda</span>
             </a>
-            <a href="nonlgn_lacakorderan.php" style="text-decoration: none; color: #06D85F;">
+            <a href="nonlgn_lacakorderan.php" >
                 <span class="link-text">Lacak Orderan</span>
             </a>
-            <a href="nonlgn_hubungikami.php">
+            <a href="nonlgn_hubungikami.php"style="text-decoration: none; color: #06D85F;">
                 <span class="link-text">Hubungi Kami</span>
             </a>
             <a href="nonlgn_calculator.php">

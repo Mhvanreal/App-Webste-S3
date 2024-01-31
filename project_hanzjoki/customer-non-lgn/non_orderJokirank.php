@@ -24,24 +24,25 @@
                 <img src="../image/LOGO HANZJOKI.png" alt="LOGO" style="width:150px; height:auto; ">
             </h2>
               
-            <nav class="navigation3">
-            
-            <a href="nonlgnberanda.php">
-                <span class="link-text">Beranda</span>
-            </a>
-            <a href="nonlgn_lacakorderan.php" style="text-decoration: none; color: #06D85F;">
-                <span class="link-text">Lacak Orderan</span>
-            </a>
-            <a href="nonlgn_hubungikami.php">
-                <span class="link-text">Hubungi Kami</span>
-            </a>
-            <a href="nonlgn_calculator.php">
-                <span class="link-text">Calculator Ml</span>
-            </a>
-        </nav>
+             <nav class="navigation3">
+        
+                <a href="nonlgnberanda.php"  style="text-decoration: none; color: #06D85F;">
+                    <span class="link-text">Beranda</span>
+                </a>
+
+                <a href="nonlgn_lacakorderan.php">
+                    <span class="link-text">Lacak Orderan</span>
+                </a>
+                <a href="nonlgn_hubungikami.php">
+                    <span class="link-text">Hubungi Kami</span>
+                </a>
+                <a href="nonlgn_calculator.php">
+                    <span class="link-text">Calculator Ml</span>
+                </a>
+            </nav>
             
         </div>
-       
+      
         <nav class="navigation2">
             <a href="../register.php">Daftar Sekarang</a>
             <a href="../login.php">Masuk</a>
@@ -77,7 +78,7 @@
         <section id="joki" class="list-jokian-order">
                
                 <div class="img-jokian">
-                    <a href="non_orderjokimcl.php">
+                    <a href="orderjokimcl.php">
                             <img src="../image/MCL.png" alt="">
                             <div class="pil-jokirank">Joki MCL <br>(Jasa joki MCL)</div>
                     </a>
@@ -95,14 +96,14 @@
                     </a>
                 </div>
                 <div class="img-jokian">
-                    <a href="non_orderjokiclassic.php">
+                    <a href="orderjokiclassic.php">
                             <img src="../image/JOKICLASIK.png" alt="">
                             <div class="pil-jokirank">Joki clasic <br>(Jasa joki Up WinRate)</div>
                     </a>
                 </div>
         </section>
     </div>
-    <form id="form1" method="POST">
+    <form id="form1" method="POST" >
     <div class="box-id-input">
         <div class="card-header">Lengkapi Data</div>
         <div class="left-input">
@@ -185,9 +186,9 @@ if ($result_murah_joki === false) {
 
     <!-- Promo Joki Rank -->
     <div class="card-header">Pilih Paket Joki</div>
-    
+
     <div class="container-1">
-   
+    
 
 
     </div>
@@ -268,7 +269,7 @@ foreach ($data_murah_joki as $row) {
     <input type="text" class="menghilang" name= "id_paket" id="id_paket" readonly>
     <input type="text" class="menghilang" name= "harga" id="harga" readonly>
 
-  
+    <input type="text" class="menghilang" id="id_customer" name="id_customer" value="<?php echo $id_customer; ?>" readonly>
 
 
 
@@ -327,7 +328,7 @@ function calculateTotal() {
         var harga = document.getElementById('harga').value;
 
         // Perform multiplication
-        var total = (parseFloat(quantity + "000" )) * parseFloat(harga);
+        var total = (parseFloat(quantity + "000")) * parseFloat(harga);
 
 
         // Update the result display
@@ -337,7 +338,7 @@ function calculateTotal() {
 function selectRadio(optionId, hargaId) {
         // Unselect all radio buttons
         var radioButtons = document.getElementsByName('nominal');
-        radioButtons.forEach(function (radioButton) {
+        radioButtons.forEach(function (radioBut ton) {
             radioButton.closest('.col-md-4').classList.remove('selected-background');
             radioButton.checked = false;
         });
@@ -410,17 +411,19 @@ Pilih Metode Pembayaran
         </div>
             <label for="qtyid" class="ppq"> Masukan No WhatsApp: </label>
                 <input type="number" name= "whatsappBro" id="noWhatsApp" required>
+                
         </div>
 <div class="buy-or">
     <!-- ... (elemen formulir lainnya) ... -->
-        <button class="payment-button"  type="submit" name="ORDERNOWWW">
+    <button class="payment-button" type="submit" name="ORDERNOWWW" onclick="orderNow()">
+        </form>
             <img src="../image/cart.png" alt="Payment Image" class="payment-image" id="orderImage">
                 <div class="payment-content">
             <h3 class="payment-title">Order Now</h3>
         </div>
     </button>
  </div>
-</form>
+
 </div>
 <style>
     input[type="radio"] {
@@ -435,16 +438,18 @@ Pilih Metode Pembayaran
 
 // Memeriksa apakah form telah disubmit
 if (isset($_POST["ORDERNOWWW"])) {
-    // Memanggil fungsi transaksi dengan data yang diterima dari form
-    session_start();
-    $result = transaksi($_POST);
     
+    // Memanggil fungsi transaksi dengan data yang diterima dari form
+    $result = transaksi($_POST);
+    session_start();
     if ($result > 0) {
         echo "
-            <script>
-            alert('DATA BERHASIL DI TAMBAHKAN');
-            document.location.href = 'nonrank_struk_customer_done.php';
-            </script>
+        <script>
+        alert('DATA BERHASIL DI TAMBAHKAN');
+        window.location.href = 'nonrank_struk_rank.php';
+    </script>
+    
+            
         ";
     } else {
         // Menangani jika terjadi kesalahan saat menjalankan fungsi transaksi
@@ -459,7 +464,7 @@ if (isset($_POST["ORDERNOWWW"])) {
 // Mendefinisikan fungsi transaksi
 function transaksi($data) {
     global $koneksi;
-
+   
     // Extract data from $data array
     $login_via = $data['login_via'];
     $req_hero = $data['req_hero'];
@@ -475,7 +480,9 @@ function transaksi($data) {
     $id_paket = $data['id_paket'];
     $qty = $data['jumlahorder'];
     $harga = $data['harga']; // Corrected variable name
+    $id_customer = $data['id_customer'];
 
+    // Insert data_akun
     $sqldata = "INSERT INTO data_akun (id_data_akun, login_via, email_nohp, req_hero, nick_id, pw, catatan)
             VALUES ('', '$login_via', '$email_nohp', '$req_hero', '$nickname', '$pass', '$catatan')";
     if (!mysqli_query($koneksi, $sqldata)) {
@@ -495,81 +502,43 @@ function transaksi($data) {
         // Insert transaksi
         $sqltran = "INSERT INTO transaksi (id_transaksi, id_customer, id_worker, id_data_akun, qty_order, tgl_order,
             total_transaksi, payment, no_wa, stats, bukti_tf, laporan_ss, statsdone)
-            VALUES ('', Null, NULL, '$id_akun', '$qty_order', '$tgl_order', '$total_transaksi', '$payment', '$no_wa', 'Belum Lunas', NULL, NULL, 'Undertake')";
+            VALUES ('',NULL , NULL, '$id_akun', '$qty_order', '$tgl_order', '$total_transaksi', '$payment', '$no_wa', 'Belum Lunas', NULL, NULL, 'Undertake')";
         if (!mysqli_query($koneksi, $sqltran)) {
             die("Error in SQL query: " . mysqli_error($koneksi));
         }
 
         // Get id_transaksi
-        $result = mysqli_query($koneksi, "SELECT id_transaksi FROM transaksi WHERE tgl_order = '$tgl_order'");
-        if ($row = mysqli_fetch_assoc($result)) {
-            $id_transaksi = $row['id_transaksi']; // Mengisi nilai id_transaksi
-    
-            // Insert detail_transaksi
-            $sqldetail = "INSERT INTO detail_transaksi (id_transaksi, id_paket, qty, subtotal) VALUES ('$id_transaksi', '$id_paket', '$qty', '$total_transaksi')";
-            if (!mysqli_query($koneksi, $sqldetail)) {
-                die("Error in SQL query: " . mysqli_error($koneksi));
-            }
-    
-            // Menyimpan id_transaksi dalam sesi
-            $_SESSION['id_transaksi'] = $id_transaksi;
-    
-            return mysqli_affected_rows($koneksi);
-        }
+$result = mysqli_query($koneksi, "SELECT id_transaksi FROM transaksi WHERE no_wa = '$no_wa'");
+if (!$result) {
+    die("Error in SQL query: " . mysqli_error($koneksi));
+}
+
+// Pemeriksaan hasil query
+if ($row = mysqli_fetch_assoc($result)) {
+    $id_transaksi = $row['id_transaksi']; // Assign the value of id_transaksi
+
+    // Insert detail_transaksi
+    $sqldetail = "INSERT INTO detail_transaksi (id_transaksi, id_paket, qty, subtotal) VALUES ('$id_transaksi', '$id_paket', '$qty', '$total_transaksi')";
+    if (!mysqli_query($koneksi, $sqldetail)) {
+        die("Error in SQL query: " . mysqli_error($koneksi));
     }
 
-    // Handle ketika id_data_akun tidak ditemukan
-    die("ID Data Akun not found for email_nohp: $email_nohp");
+    // Simpan id_transaksi ke dalam sesi
+    $_SESSION['id_transaksi'] = $id_transaksi;
+
+    return mysqli_affected_rows($koneksi);
+} else {
+            // Handle ketika id_transaksi tidak ditemukan
+            die("ID Transaksi not found for payment: $no_wa");
+        }
+    } else {
+        // Handle ketika data_akun tidak ditemukan
+        die("Data_akun not found for email_nohp: $email_nohp");
+    }
 }
 ?>
 
 
-<!-- 
 
-function upload(){
-    $namafile = $_FILES['bukti_tf']['name'];
-    $ukuranfile = $_FILES['bukti_tf']['size'];
-    $eror = $_FILES['bukti_tf']['error'];
-    $tmpnama = $_FILES['bukti_tf']['tmp_name'];
-    // cek apakah bukti_tf sudah di upload
-    if($eror === 4){
-        echo "<script>
-                alert('Gambar Belum Di Masukkan!!!');
-            </script>";
-        return false;
-    }
-    // cek apakah yang di masukkan adalah gambar
-    $exgambarvalid = ['png', 'jpeg', 'jpg', 'gif'];
-    $exgambar = explode('.', $namafile);
-    $exgambar = strtolower(end($exgambar));
-    if(!in_array($exgambar, $exgambarvalid)){
-        echo "<script>
-                alert('WOY JANGAN UPLOLAD FILE ANEH!!!');
-             </script>";
-        return false;         
-    }
-    // cek ukuran gambar
-    if($ukuranfile > 20000000){
-        echo "<script>
-                alert('Ukuran gambar anda terlalu besar!!!');
-             </script>";
-        return false; 
-    }
-    // berhasil pengecekan gas upload
-    // buat nama gambar baru
-    $namafilebaru = uniqid();
-    $namafilebaru .= '.';
-    $namafilebaru .= $exgambar;
-    move_uploaded_file($tmpnama, '../gambar/' . $namafilebaru);
-    return $namafilebaru;
-}
 
-function edit($data){
-    global $koneksi;
-    $id = ($data["id_transaksi"]);
-    $weapon = htmlspecialchars($data["bukti_tf"]);
-    $gambar = uplaud();
-    $query = "UPDATE transaksi SET bukti_tf = '$gambar' WHERE id_transaksi = '$id'";
-    mysqli_query($con, $query);
-    return mysqli_affected_rows($con);
-} -->
+

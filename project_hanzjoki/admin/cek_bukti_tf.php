@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" /> 
-        <title>Detail worker </title>
+        <title>Detail tf </title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/style3.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -96,17 +96,17 @@
    <div class="box-imge-ktp">
 
 
-    <?php
+   <?php
     // Sertakan file koneksi
     require('../koneksi.php');
 
     //// Ambil id_worker dari URL
-$id_transaksi = $_GET['id'];
+$id_worker = $_GET['id'];
 
 // Lakukan query
 $query = "SELECT * FROM transaksi WHERE id_transaksi = ? AND bukti_tf IS NOT NULL";
 $stmt = mysqli_prepare($koneksi, $query);
-mysqli_stmt_bind_param($stmt, "i", $id_transaksi);
+mysqli_stmt_bind_param($stmt, "i", $id_worker);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
@@ -120,7 +120,7 @@ $result = mysqli_stmt_get_result($stmt);
     if ($row = mysqli_fetch_array($result)) {
     ?>
         <div class="box-4">
-            <img src="../bukti_tf/<?php echo $row['bukti_tf']; ?>" alt="Gambar KTP">
+            <img src="../upload/<?php echo $row['bukti_tf']; ?>" alt="Gambar KTP">
         </div>
     <?php
     }

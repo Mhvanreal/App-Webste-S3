@@ -59,7 +59,7 @@ if (isset($_POST['lacak'])) {
         $_SESSION['id_transaksi'] = $row['id_transaksi'];
 
         // Mengarahkan langsung ke halaman non_struk_customer_done.php karena ID transaksi valid
-        header('Location: non_struk_customer_done.php');
+        header('Location: nonlgn_lacakorderan.php');
         exit;
     } else {
         // Menetapkan pesan kesalahan ke dalam sesi dan mengarahkan ke halaman nonlgn_lacakorderan.php

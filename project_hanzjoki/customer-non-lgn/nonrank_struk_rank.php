@@ -1,17 +1,18 @@
+
 <?php
 session_start();
+// Sertakan file koneksi.php
+require('../koneksi.php');
+
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['id_transaksi'])) {
     // Jika tidak, mungkin redirect ke halaman login atau tindakan lainnya
-    header('Location: nonlgn_lacakorderan.php');
+    header('Location: non_orderJokirank.php');
     exit;
 }
 
 // Mengakses informasi pengguna yang login
 $id_transaksi = $_SESSION['id_transaksi'];
-
-// Sertakan file koneksi.php
-require('../koneksi.php');
 
 // Query untuk mendapatkan data transaksi berdasarkan id_transaksi
 $query_trans = "SELECT * FROM data_akun 
@@ -77,24 +78,22 @@ $row_detail = mysqli_fetch_assoc($result_detail);
         
                  <nav class="navigation3">
             
-                    <a href="nonlgnberanda.php">
+                    <a href="dashboardcust.php">
                         <span class="link-text">Beranda</span>
                     </a>
-                    <a href="nonlgn_lacakorderan.php" style="text-decoration: none; color: #06D85F;">
+                    <a href="lacakorderan.php" style="text-decoration: none; color: #06D85F;">
                         <span class="link-text">Lacak Orderan</span>
                     </a>
-                    <a href="nonlgn_hubungikami.php">
+                    <a href="hubungikami.php">
                         <span class="link-text">Hubungi Kami</span>
                     </a>
-                    <a href="nonlgn_calculator.php">
+                    <a href="calculator.php">
                         <span class="link-text">Calculator Ml</span>
                     </a>
                 </nav>
             </div>
-            <nav class="navigation2">
-            <a href="../register.php">Daftar Sekarang</a>
-            <a href="../login.php">Masuk</a>
-        </nav>
+            
+            
         </header>
 
 
@@ -105,7 +104,7 @@ $row_detail = mysqli_fetch_assoc($result_detail);
 <div class="body-struk">
 <!-- ====================================================================================================================== -->
 <!-- ====================================================================================================================== -->
-            <h1 class="thank">Terima Kasih OK !</h1>
+            <h1 class="thank">Terima Kasih!</h1>
             <h1 class="thank2"> Transaksi Sudah Selesai. </h1>
             <div class="id_pesanan1">Pesanan kamu <?php echo $id_transaksi; ?> Telah dikirim dan akan segera tiba.</div>
             <div class="tgl-pemesanan1">Transaksi dibuat pada </div>
@@ -160,6 +159,23 @@ $row_detail = mysqli_fetch_assoc($result_detail);
                                     
                                     <hr class="horizontal-line1">  
                                     <div class="rt-3"> 
+
+                                    <div class="nomor-invoice1" >Nomor Invoice</div>
+                                    <div class="stats-transaksi">Status Transgitaksi</div>
+                                    <div class="pembayaran-status">Status Pembayaran</div>
+                                    <div class="stats-pesan">Pesan</div>  
+                                    
+            </div>
+            
+            <!-- <form id="form1" method="POST">
+                        <input type="file" name="img_ktp" accept="image/*">
+                        <button class="payment-button" type="submit" name="TRANSFER">
+                <div class="payment-content">
+            <h3 class="payment-title">KIRIM</h3>
+        </div>
+     </button>
+                        </form>
+git
                                     <div class="nomor-invoice1" >Nomor Invoice <?php echo $row_trans ["id_transaksi"]?> </div>
                                     <div class="stats-transaksi">Status Transaksi <?php echo $row_trans ["stats"]?></div>
                                     <div class="pembayaran-status">Status Pengerjaan <?php echo $row_trans ["statsdone"]?></div>  
@@ -168,10 +184,11 @@ $row_detail = mysqli_fetch_assoc($result_detail);
             
             
 
-            <input type="submit" name = "uplaud" > 
+
+>>>>>>> 3ae042ea519127c4880e288a7895e478f87a65d6
             <a href="dashboardcust.php" class="pesan-button">Beli Lagi</a>
             
-            </div>
+            </div> -->
             
             </div>
             </div>

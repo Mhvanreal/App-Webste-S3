@@ -464,7 +464,7 @@ Pilih Metode Pembayaran
                 
         </div>
 <div class="buy-or">
-    <!-- ... (elemen formulir lainnya) ... -->
+    <!-- ... (elemen formulir lainnya) ... -->  
     <button class="payment-button" type="submit" name="ORDERNOWWW" onclick="orderNow()">
         </form>
             <img src="../image/cart.png" alt="Payment Image" class="payment-image" id="orderImage">

@@ -19,7 +19,7 @@ require('../koneksi.php');
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['id_transaksi'])) {
     // Jika tidak, mungkin redirect ke halaman login atau tindakan lainnya
-    header('Location: lacakorderan.php');
+    header('Location: orderJokirank.php');
     exit;
 }
 
@@ -123,7 +123,7 @@ $row_detail = mysqli_fetch_assoc($result_detail);
             <h1 class="thank2"> Transaksi Sudah Selesai. </h1>
             <div class="id_pesanan1">Pesanan kamu <?php echo $id_transaksi; ?> Telah dikirim dan akan segera tiba.</div>
             <div class="tgl-pemesanan1">Transaksi dibuat pada </div>
-            <input type="text" name="id_transaksi" value="<?php echo htmlspecialchars($id_transaksi); ?>">
+            
             <!-- Garis horizontal -->   
             <hr class="horizontal-line">
             <div class="body-rt">
@@ -175,63 +175,43 @@ $row_detail = mysqli_fetch_assoc($result_detail);
                                     <hr class="horizontal-line1">  
                                     <div class="rt-3"> 
 
-                                    <div class="nomor-invoice1" >Nomor Invoice </div>
+                                    <div class="nomor-invoice1" >Nomor Invoice</div>
                                     <div class="stats-transaksi">Status Transgitaksi</div>
                                     <div class="pembayaran-status">Status Pembayaran</div>
                                     <div class="stats-pesan">Pesan</div>  
                                     
             </div>
             
-           
 
+            <form action="struk_rank_done.php" enctype="multipart/form-data" method="post">
+                <label for="bukti_tf">Unggah Bukti Transfer</label>
+                <input type="file" name="bukti_tf" accept="image/*">
+                <input type="submit" value="Unggah">
+            </form>
+
+            <!-- <form id="form1" method="POST">
+                        <input type="file" name="img_ktp" accept="image/*">
+                        <button class="payment-button" type="submit" name="TRANSFER">
+                <div class="payment-content">
+            <h3 class="payment-title">KIRIM</h3>
+        </div>
+     </button>
+                        </form>
+git
                                     <div class="nomor-invoice1" >Nomor Invoice <?php echo $row_trans ["id_transaksi"]?> </div>
                                     <div class="stats-transaksi">Status Transaksi <?php echo $row_trans ["stats"]?></div>
                                     <div class="pembayaran-status">Status Pengerjaan <?php echo $row_trans ["statsdone"]?></div>  
-                                    <label for="">NO PAYMENT : 085259990293</label>
-                                    <?php
-                                    require('../koneksi.php');
-                                    if(isset($_POST["unggah"])){
-                                        if(kirimbukti($_POST) > 0){
-                                            echo "berhasil
-                                            ";    
-                                        }else{
-                                            echo "gagal
-                                            ";
-                                        }
-                                    }
                                     
-function kirimbukti($data){
-    global $koneksi;
-    $idtra = htmlspecialchars($data["id"]);
-    $bukti = htmlspecialchars($data["bukti_tf"]);
-
-    $sql = "UPDATE transaksi SET bukti_tf = '$bukti' WHERE id_transaksi = '$idtra'";
-    mysqli_query($koneksi, $sql);
-    return mysqli_affected_rows($koneksi);
-}
-
-
-                                    ?>
-                                    
-                                    <form action="" method="post">
-                                    <input type="text" placeholder=" " required name="id" id="ids" value="<?php echo $row_trans ["id_transaksi"]?>" style="visibility: hidden; border-bottom: 1px solid rgb(255, 255, 255);">
-                                    <label for="bukti_tf">Unggah Bukti Transfer</label>
-                                    <input type="file" name="bukti_tf" accept="image/*">
-                                    <input type="submit" value="Unggah" name="unggah">
-                                    </form>
-                                    
+            </div>
+            
+            
 
 
 
-
-
-
-
-
-
-                    <a href="dashboardcust.php" class="pesan-button">Beli Lagi</a>
-
-            </div>    
+            <a href="dashboardcust.php" class="pesan-button">Beli Lagi</a>
+            
+            
+            
             </div>
             </div>
             
@@ -263,4 +243,3 @@ function kirimbukti($data){
 
 </body>
 </html>
-
